@@ -10,23 +10,18 @@ import { useNavigate } from "react-router-dom";
 
 type FormValues={
     email:string,
-    password:string
 }
 
 
-const Login=()=>{
+const ForgotPassword=()=>{
     const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
     const [loading,setLoading]=useState(false);
     const navigate=useNavigate();
 
     const formSchema = Yup.object().shape({
         email: Yup.string()
             .required('Email is mandatory')
-            .email('Email is invalid'),
-        password: Yup.string()
-            .required('Password is mandatory')
-            .min(6, 'Password must be at least 6 char long'),
+            .email('Email is invalid')
 
     })
 
@@ -38,20 +33,12 @@ const Login=()=>{
         setEmail(e.target.value);
     }
 
-    const passwordHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
-        setPassword(e.target.value);
-    }
-
-    const getUser=async()=>{
-        try{
-            const user=await axios.get('http://localhost:3000/api/v1/users/me',{
-            headers:{
-                authorisation:`Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        console.log(user);
-        }catch(err:any){
-            toast.error(`${err.response.data.error}`, {
+    const getPasswordHandler=async(data:FormValues)=>{
+            try{
+            setLoading(true)
+            const tok = await axios.post('http://localhost:3000/api/v1/users/forgotpassword', data);
+            console.log(tok)
+            toast.info(`${tok.data.data}`, {
                 position: "bottom-left",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -61,18 +48,7 @@ const Login=()=>{
                 progress: undefined,
                 theme: "dark",
             });
-            }
-        }
-
-    const loginHandler=async(data:FormValues)=>{
-            try{
-            setLoading(true)
-            const tok = await axios.post('http://localhost:3000/api/v1/users/login', data);
-            console.log(tok)
-            localStorage.setItem('token', tok.data.token);
-            getUser();
             setLoading(false)
-            navigate('/')
             }
             catch (err:any) {
             setLoading(false)
@@ -96,19 +72,20 @@ const Login=()=>{
         <div className="lg:w-[30%] flex items-align-center justify-center pt-[300px] bg-[#FAF9F6] md:w-[50%] xs:w-[100vw] ">
             
             <div className="flex flex-col">
-            <h1 className="text-4xl pb-[40px]">Login</h1>
-            <form onSubmit={handleSubmit(loginHandler)} className="flex flex-col">
+            <h1 className="text-4xl pb-[40px]">Forgot Password</h1>
+            <form onSubmit={handleSubmit(getPasswordHandler)} className="flex flex-col">
                 <input value={email} {...register("email")} placeholder="Email" onChange={emailHandler} className="w-[300px] h-[50px] mb-[30px] p-[10px] bg-[#F0F0F0] rounded-md text-gray-500 border-[#E8E8E8] border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
                 <p className="text-red-600">{errors.email?.message}</p>
-                <input value={password} type="password" {...register("password")} placeholder="Password" onChange={passwordHandler} className="w-[300px] text-gray-500 h-[50px] mb-[30x] p-[10px] bg-[#F0F0F0] border-[#E8E8E8] rounded-md border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
-                <p className="text-red-600">{errors.password?.message}</p>                
-                <p className="text-[#00CED1] mt-[20px] mb-0 cursor-pointer" onClick={()=>{navigate('/forgotpassword')}} >Forgot Password?</p>            
-                {!loading && <button type="submit" className="w-[300px] h-[50px] mt-[30px] bg-[#00CED1] text-white rounded-md hover:cursor-pointer hover:bg-[#318CE7]">Sign In</button>}
+                {!loading && <button type="submit" className="w-[300px] h-[50px] mt-[30px] bg-[#00CED1] text-white rounded-md hover:cursor-pointer hover:bg-[#318CE7]">Send Email</button>}
                 {loading && <div className="w-[300px] h-[50px] mt-[30px] bg-gray-500 text-white flex rounded-md text-center items-center justify-center ">Loading...</div>}
             </form>
                 <div className="flex items-baseline">
                 <p className="mt-[20px]">Haven't Registered?&nbsp;</p>
-                <p className="text-[#00CED1] cursor-pointer" onClick={()=>{navigate('/register')}} >Sign up</p>
+                <p className="text-[#00CED1] cursor-pointer" onClick={()=>{navigate('/register')}}>Sign up</p>
+                </div>
+                <div className="flex items-baseline">
+                <p className="mt-[20px]">Already Registered?&nbsp;</p>
+                <p className="text-[#00CED1] cursor-pointer"  onClick={()=>{navigate('/login')}}>Sign in</p>
                 </div>
             </div>
         </div>
@@ -133,4 +110,4 @@ const Login=()=>{
     )
 }
 
-export default Login;
+export default ForgotPassword;

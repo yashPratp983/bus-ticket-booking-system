@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 type FormValues={
     email:string,
@@ -17,6 +18,7 @@ const Login=()=>{
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [loading,setLoading]=useState(false);
+    const navigate=useNavigate();
 
     const formSchema = Yup.object().shape({
         email: Yup.string()
@@ -70,6 +72,7 @@ const Login=()=>{
             localStorage.setItem('token', tok.data.token);
             getUser();
             setLoading(false)
+            navigate('/');
             }
             catch (err:any) {
             setLoading(false)
@@ -98,16 +101,16 @@ const Login=()=>{
             <div className="flex flex-col">
             <h1 className="text-4xl pb-[40px]">Sign up</h1>
             <form onSubmit={handleSubmit(signupHandler)} className="flex flex-col">
-                <input value={email} {...register("email")} placeholder="Email" onChange={emailHandler} className="w-[300px] h-[50px] mb-[30px] p-[10px] bg-[#F0F0F0] rounded-md text-gray-500 border-[#E8E8E8] border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
-                <p className="text-red-600">{errors.email?.message}</p>
-                <input value={password} {...register("password")} placeholder="Password" onChange={passwordHandler} className="w-[300px] text-gray-500 h-[50px] mb-[30x] p-[10px] bg-[#F0F0F0] border-[#E8E8E8] rounded-md border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
+                <input value={email} {...register("email")} placeholder="Email" onChange={emailHandler} className="w-[300px] h-[50px] p-[10px] bg-[#F0F0F0] rounded-md text-gray-500 border-[#E8E8E8] border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
+                <p className="text-red-600 mb-[30px] ">{errors.email?.message}</p>
+                <input value={password} type="password" {...register("password")} placeholder="Password" onChange={passwordHandler} className="w-[300px] text-gray-500 h-[50px] mb-[30x] p-[10px] bg-[#F0F0F0] border-[#E8E8E8] rounded-md border-solid border-[2px] focus:border-[#E8E8E8] focus:border-solid focus:border-[2px]"></input>
                 <p className="text-red-600">{errors.password?.message}</p>
                 {!loading && <button type="submit" className="w-[300px] h-[50px] mt-[30px] bg-[#00CED1] text-white rounded-md hover:cursor-pointer hover:bg-[#318CE7]">Sign up</button>}
                 {loading && <div className="w-[300px] h-[50px] mt-[30px] bg-gray-500 text-white flex rounded-md text-center items-center justify-center ">Loading...</div>}
             </form>
                 <div className="flex items-baseline">
                 <p className="mt-[20px]">Already registered?&nbsp;</p>
-                <p className="text-[#00CED1]" >Sign In</p>
+                <p className="text-[#00CED1] cursor-pointer" onClick={()=>{navigate('/lo')}}>Sign In</p>
                 </div>
             </div>
         </div>
