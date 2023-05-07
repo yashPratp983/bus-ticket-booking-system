@@ -197,3 +197,30 @@ exports.verifyEmail = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: 'Email verified',token:jsonweb });
 
 });
+
+exports.resendEmailVerification = asyncHandler(async (req, res, next) => {
+    const emailToken = crypto.randomBytes(20).toString('hex');
+    const emailVerificationToken = crypto.createHash('sha256').update(emailToken).digest('hex');
+    const emailVerificationExpire = Date.now() + 10 * 60 * 1000;
+
+    let updatedUser=await db.query('UPDATE users SET email_verification_token=$1,email_verification_token_expire=$2 WHERE user_email=$3 RETURNING *',[emailVerificationToken,emailVerificationExpire,req.body.email]);
+
+    const resetUrl=`http://localhost:5173/verifyEmail/${emailVerificationToken}`
+
+    const options = {
+        email: req.body.email,
+        subject: 'Email Verification',
+        message: `Please verify your email by clicking on following url: \n\n ${resetUrl}`
+    }
+
+    try {
+        await sendEmail(options);
+        res.status(200).json({ success: true, data: 'Email sent' });
+    } catch (err) {
+        console.log(err);
+        const reset=await db.query('UPDATE users SET email_verification_token=null,email_verification_token_expire=null WHERE user_email=$1 RETURNING *',[req.body.email]);
+
+        return next(new errorResponse('Email could not be sent', 500));
+    }
+    
+});

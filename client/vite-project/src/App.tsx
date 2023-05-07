@@ -7,13 +7,37 @@ import VerifyEmail from './components/onboarding/verifyEmail'
 import Home from './components/Home/homs'
 import ConfirmVerification from './components/onboarding/confirmVerification'
 import WrongTokenResponse from './components/onboarding/wrongTokenResponse'
-import { useContext } from 'react'
+import { useAuth } from './contexts/users'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
+  const {setUser}=useAuth()
+
+  useEffect(()=>{
+    const getUser=async()=>{
+        try{
+            const user=await axios.get('http://localhost:3000/api/v1/users/me',{
+            headers:{
+                authorisation:`Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        console.log(user);
+        setUser(user.data.data)
+        }catch(err:any){
+            console.log(err)
+        }
+      }
+    
+  
+        getUser()
+      
+  },[])
   
   return (
-    <>
-    <Routes>
+    
+ 
+          <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Signup />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -22,8 +46,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/confirmverification" element={<ConfirmVerification />} />
       <Route path='/wrongtokenresponse' element={<WrongTokenResponse />} />
-    </Routes>
-    </>
+      </Routes>
+    
+
+    
   )
 }
 

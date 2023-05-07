@@ -2,11 +2,12 @@ import { useState } from "react";
 import React from "react";
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams,useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/users";
 
 type FormValues={
     password:string
@@ -20,6 +21,7 @@ const ResetPassword=()=>{
     const [loading,setLoading]=useState(false);
     const {token}=useParams<{token:string}>();
     const navigate=useNavigate();
+    const {setUser}=useAuth();
 
     const formSchema = Yup.object().shape({
         password: Yup.string()
@@ -48,8 +50,10 @@ const ResetPassword=()=>{
             headers:{
                 authorisation:`Bearer ${localStorage.getItem('token')}`
             }
+
         });
         console.log(user);
+        setUser(user.data.data)
         }catch(err:any){
             toast.error(`${err.response.data.error}`, {
                 position: "bottom-left",

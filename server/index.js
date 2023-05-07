@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const db = require('./config/database');
 const users = require('./routes/user');
+const schedule = require('./routes/schedule');
 const morgan = require('morgan');
 
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use('/api/v1/users', users);
+app.use('/api/v1/schedule', schedule);
 app.use(errorHandler);
 
 const port = process.env.PORT || 5000;

@@ -7,6 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/users";
 
 type FormValues={
     email:string,
@@ -18,6 +19,7 @@ const Login=()=>{
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [loading,setLoading]=useState(false);
+    const {setUser}=useAuth();
     const navigate=useNavigate();
 
     const formSchema = Yup.object().shape({
@@ -49,6 +51,7 @@ const Login=()=>{
                 authorisation:`Bearer ${localStorage.getItem('token')}`
             }
         });
+        setUser(user.data.data)
         console.log(user);
         }catch(err:any){
             toast.error(`${err.response.data.error}`, {

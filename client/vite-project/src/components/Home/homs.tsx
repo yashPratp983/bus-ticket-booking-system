@@ -1,9 +1,12 @@
-const Home=()=>{
+import Header from "./header"
+import Table from "./table"
 
+const Home=()=>{
     return(
-        <div>
-            <h1>Home</h1>
-        </div>
+        <>
+        <Header />
+        <Table />
+        </>
     )
 }
 
