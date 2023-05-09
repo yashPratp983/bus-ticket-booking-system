@@ -8,11 +8,13 @@ import Home from './components/Home/homs'
 import ConfirmVerification from './components/onboarding/confirmVerification'
 import WrongTokenResponse from './components/onboarding/wrongTokenResponse'
 import { useAuth } from './contexts/users'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import axios from 'axios'
+import Loading from './components/loading'
 
 function App() {
   const {setUser}=useAuth()
+  const [loading,setLoading]=useState<boolean>(true)
 
   useEffect(()=>{
     const getUser=async()=>{
@@ -23,9 +25,11 @@ function App() {
             }
         });
         console.log(user);
-        setUser(user.data.data)
+        setUser(user.data.data) 
+        setLoading(false)
         }catch(err:any){
             console.log(err)
+            setLoading(false)
         }
       }
     
@@ -42,10 +46,11 @@ function App() {
       <Route path="/register" element={<Signup />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetpassword/:token" element={<ResetPassword />} />
-      <Route path="/verifyemail/:token" element={<VerifyEmail />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/verifyemail/:token" element={<VerifyEmail loading={loading}/>} />
+      <Route path="/" element={<Home loading={loading}/>} />
       <Route path="/confirmverification" element={<ConfirmVerification />} />
       <Route path='/wrongtokenresponse' element={<WrongTokenResponse />} />
+      <Route path='/loading' element={<Loading />} />
       </Routes>
     
 

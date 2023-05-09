@@ -206,6 +206,7 @@ exports.resendEmailVerification = asyncHandler(async (req, res, next) => {
     let updatedUser=await db.query('UPDATE users SET email_verification_token=$1,email_verification_token_expire=$2 WHERE user_email=$3 RETURNING *',[emailVerificationToken,emailVerificationExpire,req.body.email]);
 
     const resetUrl=`http://localhost:5173/verifyEmail/${emailVerificationToken}`
+    console.log(req.body.email)
 
     const options = {
         email: req.body.email,
@@ -217,7 +218,6 @@ exports.resendEmailVerification = asyncHandler(async (req, res, next) => {
         await sendEmail(options);
         res.status(200).json({ success: true, data: 'Email sent' });
     } catch (err) {
-        console.log(err);
         const reset=await db.query('UPDATE users SET email_verification_token=null,email_verification_token_expire=null WHERE user_email=$1 RETURNING *',[req.body.email]);
 
         return next(new errorResponse('Email could not be sent', 500));
