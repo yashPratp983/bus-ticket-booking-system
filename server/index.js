@@ -5,7 +5,7 @@ const db = require('./config/database');
 const users = require('./routes/user');
 const schedule = require('./routes/schedule');
 const morgan = require('morgan');
-
+const booking=require('./routes/payment');
 
 const errorHandler = require('./middleware/errorHandler');
 
@@ -20,6 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use('/api/v1/users', users);
 app.use('/api/v1/schedule', schedule);
+app.use('/api/v1/booking',booking);
+
 app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
