@@ -103,8 +103,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 }); 
 
 exports.getMe = asyncHandler(async (req, res, next) => {
-    const user = await db.query('SELECT * FROM users WHERE user_id=$1',[req.user.id]);
-    req.user=req.user.rows[0];
+    const user = await db.query('SELECT * FROM users WHERE user_id=$1',[req.user.user_id]);
     delete req.user.user_password;
     delete req.user.email_verification_token;
     delete req.user.email_verification_token_expire;

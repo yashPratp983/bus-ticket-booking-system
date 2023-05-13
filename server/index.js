@@ -6,6 +6,7 @@ const users = require('./routes/user');
 const schedule = require('./routes/schedule');
 const morgan = require('morgan');
 const booking=require('./routes/payment');
+const ejs=require('ejs');
 
 const errorHandler = require('./middleware/errorHandler');
 

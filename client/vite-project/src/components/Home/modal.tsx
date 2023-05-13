@@ -4,6 +4,9 @@ import Modal from '@mui/material/Modal';
 import StripeCheckout from "react-stripe-checkout"
 import { useAuth } from "../../contexts/users";
 import axios from "axios";
+import { ToastContainer,toast } from "react-toastify";
+
+import html2pdf from 'html2pdf.js';
 
 type overlayProps={
     open:boolean,
@@ -42,10 +45,30 @@ const Overlay=(props:overlayProps)=>{
         props.setOpen(false)
     }
 
+    function convertHtmlToPdf(html:any) {
+        const element = document.createElement('div');
+        element.innerHTML = html;
+        html2pdf().from(element).output('blob').then((pdfBlob:any) => {
+          const filename = 'ticket.pdf';
+          const url = URL.createObjectURL(pdfBlob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+          link.parentNode?.removeChild(link);
+        });
+      }
+
+
+      
+
     const handleToken=async(token:any)=>{
+        const tok=localStorage.getItem('token')
         try{
-            const res=await axios.post("http://localhost:3000/api/v1/booking",{
-                token,
+            const res=await axios.post("http://localhost:3000/api/v1/booking",
+            {
+                    token,
                     bus_name:props.item?.bus_name,
                     journey_id:props.item?.journey_id,
                     starting_address:props.item?.starting_address,
@@ -53,10 +76,43 @@ const Overlay=(props:overlayProps)=>{
                     leaving_time:props.item?.leaving_time,
                     number_of_seats:num,
                     user:auth?.user
-            })
+            },
+            {
+                headers:{
+                    authorisation:`Bearer ${tok}`
+                }
+            }
+            )
+            const html=res.data.html
+            convertHtmlToPdf(html)
+           
             console.log(res)
-        }catch(err){
+
+            toast.success(`Booking Successful`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            
+
+        }catch(err:any){
             console.log(err)
+            toast.error(`${err.response.data.error}`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+
         }
     }
 
@@ -69,6 +125,7 @@ const Overlay=(props:overlayProps)=>{
     }
 
     return(
+    <>
     <Modal
         open={props.open}
         onClose={handleClose}
@@ -115,7 +172,7 @@ const Overlay=(props:overlayProps)=>{
             </Typography>
             </Box>
             <StripeCheckout 
-                className='center'
+                // className='center'
                 amount={num*20}
                 stripeKey="pk_test_51N5rooSFRPrc5koGlXTmFTZodji11LyLzMunfBinxYPaVRYCaD0Ni6OwgCTrXIkjSjBegbQsI4Fb1kJonZamU5Ct00aBp8xmRt"
                 token={handleToken}
@@ -124,6 +181,19 @@ const Overlay=(props:overlayProps)=>{
             /> 
         </Box>
     </Modal>
+    <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+    </>
     )
 }
 

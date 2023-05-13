@@ -1,0 +1,128 @@
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<style>
+nav {
+    display: none !important;
+}
+
+@font-face {
+  font-family: 'product sans';
+  src: url('assets/css/Product Sans Bold.ttf');
+}
+h2.brand {
+    /* font-style: italic; */
+    font-size: 27px !important;
+}
+.vl {
+  border-left: 6px solid #424242;
+  height: 400px;
+}
+.text-light2 {
+    color: #d9d9d9;
+}
+h3 {
+    /* font-weight: lighter !important; */
+    font-size: 21px !important;
+    margin-bottom: 20px;  
+    font-family: Tahoma, sans-serif;
+    font-weight: lighter;
+}
+p.head {
+    text-transform: uppercase;
+    font-family: arial;
+    font-size: 17px;
+    margin-bottom: 10px ;
+    color: grey;  
+}
+p.txt {
+    text-transform: uppercase;
+    font-family: arial;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.bord {
+    border: 2px solid lightgray;
+    /* border-left: 0px !important; */
+}
+.out {
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   */
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 0px;
+    padding-top: 20px;
+    border: 2px solid lightgray;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+h2 {
+    font-weight: lighter !important;
+    font-size: 35px !important;
+    margin-bottom: 20px;  
+    font-family :'product sans' !important;
+    font-weight: bolder;
+}
+h1 {
+    font-weight: lighter !important;
+    font-size: 45px !important;
+    margin-bottom: 20px;  
+    font-family :'product sans' !important;
+    font-weight: bolder;
+  }
+</style>
+<main>
+                        <div class="row mb-5">                                                         
+                        <div class="col-9 out">
+                            <div class="row ">                                                     
+                                <div class="col">
+                                    <h2 class="text-secondary mb-0 brand">
+                                        Online Bus Booking</h2> 
+                                </div>
+                                <div class="col">
+                                    <h2 class="mb-0"></h2>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-3">  
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p class="head">Date</p>
+                                        <p class="txt"><%= date %> </p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="head">From</p>
+                                        <p class="txt"><%= journey.starting_address %></p>
+                                    </div>            
+                                    <div class="col-3">
+                                        <p class="head">To</p>
+                                        <p class="txt"><%= journey.destination_address %></p>
+                                    </div>                
+                                </div>  
+                            <div class="row mb-3">
+                                <div class="col-8">
+                                    <p class="head">Passenger</p>
+                                    <p class=" h5 text-uppercase">
+                                    <%= user.user_name %></p>
+                                    </p>                              
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="head">Bus</p>
+                                    <p class="txt"><%= journey.bus_name %> </p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="head">Time</p>
+                                    <p class="txt"><%= journey.leaving_time %></p>
+                                </div>            
+                                <div class="col-3">
+                                    <p class="head">Number of seats</p>
+                                    <p class="txt"><%= booking.no_of_tickets %></p>
+                                </div>                
+                            </div>                    
+                        </div>
+                                                                      
+
+    </div>
+  </main>
+  <script>
+  </script>
