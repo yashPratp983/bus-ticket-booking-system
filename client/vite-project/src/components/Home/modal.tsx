@@ -5,7 +5,6 @@ import StripeCheckout from "react-stripe-checkout"
 import { useAuth } from "../../contexts/users";
 import axios from "axios";
 import { ToastContainer,toast } from "react-toastify";
-
 import html2pdf from 'html2pdf.js';
 
 type overlayProps={

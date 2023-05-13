@@ -151,3 +151,4 @@ exports.payment=asyncHandler(async (req,res,next)=>{
     return next(new errorResponse('Unable to book ticket',500));
 }
 });
+

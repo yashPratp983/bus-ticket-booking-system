@@ -11,6 +11,8 @@ import { useAuth } from './contexts/users'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import Loading from './components/loading'
+import UserTickets from './components/user_tickets/user_tickets'
+import AuthRequire from './auth/authRequire'
 
 function App() {
   const {setUser}=useAuth()
@@ -51,6 +53,7 @@ function App() {
       <Route path="/confirmverification" element={<ConfirmVerification />} />
       <Route path='/wrongtokenresponse' element={<WrongTokenResponse />} />
       <Route path='/loading' element={<Loading />} />
+      <Route path='/usertickets' element={loading?<Loading />:<AuthRequire><UserTickets /></AuthRequire>} />
       </Routes>
     
 

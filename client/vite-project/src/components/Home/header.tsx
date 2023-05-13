@@ -12,6 +12,7 @@ import { styled } from '@mui/material';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -33,6 +34,8 @@ const DesignedButton=styled(Button)({
 
 const Header = () => {
     const navigate=useNavigate()
+    const location=useLocation()
+    console.log(location.pathname)
     const auth=useAuth()
     const logoutHandler=()=>{
         auth.setUser(null)
@@ -80,7 +83,9 @@ const Header = () => {
             <h1>Bus ticket booking</h1>
         </div>
         <div className="flex flex-row items-center text-[18px] hidden ssm:flex">
+            {(location.pathname!='/') && <div className="pr-[15px] cursor-pointer hover:underline" onClick={()=>{navigate('/')}}>Home</div>}
             {auth.user && !auth.user?.is_verified && <div className="pr-[15px] cursor-pointer hover:underline" onClick={()=>{handleOpen()}}>Verify Email</div>}
+            {auth.user && (location.pathname!='/usertickets') && <div className="pr-[15px] cursor-pointer hover:underline" onClick={()=>{navigate('/usertickets')}}>Tickets</div>}
             {auth.user==null ? <div className="cursor-pointer hover:underline" onClick={()=>{navigate('/login')}}>Login</div>:<div className="cursor-pointer hover:underline" onClick={logoutHandler}>Log out</div>}
         </div>
         <div className="flex flex-row items-center text-[18px] block ssm:hidden cursor-pointer">
