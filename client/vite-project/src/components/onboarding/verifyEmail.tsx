@@ -2,21 +2,28 @@ import axios from "axios"
 import { useEffect,useState } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-
+import { useAuth } from "../../contexts/users"
 type PropsTypes={
     loading:boolean
 }
 
 const VerifyEmail = (props:PropsTypes) => {
+    const auth=useAuth()
     const navigate=useNavigate()
     const {token}=useParams<{token:string}>();
     useEffect(()=>{
     const verifyEmail=async()=>{
         try{
             
-            const res=await axios.get(`http://localhost:3000/api/v1/users/verifyemail/${token}`)
+            const res=await axios.get(`https://localhost:2020/api/v1/users/verifyemail/${token}`)
             console.log(res)
             localStorage.setItem('token',res.data.token)
+            const user=await axios.get('https://localhost:2020/api/v1/users/me',{
+            headers:{
+                authorisation:`Bearer ${localStorage.getItem('token')}`
+            }
+        });
+            auth.setUser(user.data.data)
             navigate('/confirmverification')
         }catch(err:any){
             console.log(err)

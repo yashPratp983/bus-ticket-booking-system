@@ -9,7 +9,7 @@ const TicketTable=()=>{
     useEffect(()=>{
         const getTickets=async()=>{
             const token=localStorage.getItem("token")
-            const res=await axios.get("http://localhost:3000/api/v1/schedule/tickets",{
+            const res=await axios.get("https://localhost:2020/api/v1/schedule/tickets",{
                 headers:{
                         authorisation:`Bearer ${token}`
                     }
@@ -26,13 +26,22 @@ const TicketTable=()=>{
         l.push(transaction_id)
         try{
         const token=localStorage.getItem("token")
-        let html=await axios.get(`http://localhost:3000/api/v1/schedule/tickets/${journey_id}/${transaction_id}`,{
+        let html=await axios.get(`https://localhost:2020/api/v1/schedule/tickets/${journey_id}/${transaction_id}`,{
             headers:{
                 authorisation:`Bearer ${token}`
             }
         })
-        html=html.data.data.html;
-        convertHtmlToPdf(html)
+        
+        // convertHtmlToPdf(html)
+        const filename = 'ticket.html';
+        const url = URL.createObjectURL(new Blob([html.data.data.html], {type: 'text/html'}));
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode?.removeChild(link);
         l=l.filter((item)=>item!==transaction_id)
         setLoading(l)
     }catch(err:any){

@@ -18,8 +18,16 @@ const Table=()=>{
     useEffect(()=>{
     const getSchedule=async()=>{
         try{
-        const res=await axios.get("http://localhost:3000/api/v1/schedule")
+        let res=await axios.get("https://localhost:2020/api/v1/schedule/bus_schedule",{
+            headers:{
+            }
+        })
+        res.data.data.schedule.sort((a:any,b:any)=>{
+            return a.journey_id-b.journey_id
+        })
+
         schedule?.setSchedule(res.data.data.schedule)
+        
         console.log(res.data)
         }catch(err){
             console.log(err)
@@ -63,8 +71,9 @@ const Table=()=>{
                     <h2 className="text-center border-r-4 border-x-[#318CE7] h-[100%] flex items-center justify-center">20</h2>
                     <h2 className="text-center border-r-4 border-x-[#318CE7] h-[100%] flex items-center justify-center">{item.remaining_seats}</h2>
                     {auth.user==null && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not authorize</h2>}
-                    {auth.user!=null && (time>'10:00;00' && time<item.leaving_time) && item.remaining_seats>0 && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px] hover:bg-[#00CED1]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2>}
-                    {auth.user!=null && (time<='10:00;00' || time>=item.leaving_time || item.remaining_seats<=0) && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not available</h2>}
+                    {auth.user?.is_verified && auth.user!=null && (time>'10:00;00' && time<item.leaving_time) && item.remaining_seats>0 && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px] hover:bg-[#00CED1]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2>}
+                    {auth.user?.is_verified && auth.user!=null && (time<='10:00;00' || time>=item.leaving_time || item.remaining_seats<=0) && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not available</h2>}
+                    {!auth.user?.is_verified && auth.user!=null &&  <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Verify Email</h2>}
                     {/* <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2> */}
                 </div>
                     )
@@ -92,9 +101,9 @@ const Table=()=>{
                     <h2 className="text-center border-r-4 border-x-[#318CE7] h-[100%] flex items-center justify-center">20</h2>
                     <h2 className="text-center border-r-4 border-x-[#318CE7] h-[100%] flex items-center justify-center">{item.remaining_seats}</h2>
                     {auth.user==null && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not authorize</h2>}
-                    {auth.user!=null && (time>'10:00;00' && time<item.leaving_time) && item.remaining_seats>0 && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px] hover:bg-[#00CED1]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2>}
-                    {auth.user!=null && (time<='10:00;00' || time>=item.leaving_time || item.remaining_seats<=0)  && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not available</h2>}
-                    {/* <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2> */}
+                    {auth.user?.is_verified && auth.user!=null && (time>'10:00;00' && time<item.leaving_time) && item.remaining_seats>0 && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center"><button className="bg-[#318CE7] text-white rounded-md px-[10px] py-[5px] hover:bg-[#00CED1]" onClick={()=>{setOpen(true);setSelectedItem(item)}}>Book</button></h2>}
+                    {auth.user?.is_verified && auth.user!=null && (time<='10:00;00' || time>=item.leaving_time || item.remaining_seats<=0) && <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Not available</h2>}
+                    {!auth.user?.is_verified && auth.user!=null &&  <h2 className="text-center  border-x-[#318CE7] h-[100%] flex items-center justify-center">Verify Email</h2>}
                 </div>
                     )
                 }

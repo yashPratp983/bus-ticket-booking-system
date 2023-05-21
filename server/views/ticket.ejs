@@ -1,128 +1,808 @@
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <style>
-nav {
-    display: none !important;
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300);
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial';
+}
+ul {
+	padding: 0;
+	margin: 0;
+}
+li {
+	list-style: none;
+}
+figure {
+	margin: 0;
+}
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-@font-face {
-  font-family: 'product sans';
-  src: url('assets/css/Product Sans Bold.ttf');
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
 }
-h2.brand {
-    /* font-style: italic; */
-    font-size: 27px !important;
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #66a1f3; 
 }
-.vl {
-  border-left: 6px solid #424242;
-  height: 400px;
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #66a1f3; 
+  width: 10px;
 }
-.text-light2 {
-    color: #d9d9d9;
 }
-h3 {
-    /* font-weight: lighter !important; */
-    font-size: 21px !important;
-    margin-bottom: 20px;  
-    font-family: Tahoma, sans-serif;
-    font-weight: lighter;
+.main {
+	width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #66a1f3;	
 }
-p.head {
-    text-transform: uppercase;
-    font-family: arial;
-    font-size: 17px;
-    margin-bottom: 10px ;
-    color: grey;  
+.app {
+	width:50%;
+	min-width: 375px;
+	height: 900px;
+	border: 1px solid #efefef;
+	position: fixed;
+	overflow-y: scroll;
+  background-color: white;
+  border-radius: 10px;
+margin-left: auto;
+margin-right: auto;
+
 }
-p.txt {
-    text-transform: uppercase;
-    font-family: arial;
-    font-size: 25px;
-    font-weight: bolder;
+
+/* ========== Home ========== */
+.screen-home__location,
+.screen-home__date {
+	margin-bottom: 30px;
 }
-.bord {
-    border: 2px solid lightgray;
-    /* border-left: 0px !important; */
+.screen-home {
+  width: 100%;
+  position: absolute;
+  z-index: 1;
 }
-.out {
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   */
-    background-color: white;
-    padding-left: 25px;
-    padding-right: 0px;
-    padding-top: 20px;
-    border: 2px solid lightgray;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+.screen-home__form-wrap {
+  padding: 0 1rem;
 }
-h2 {
-    font-weight: lighter !important;
-    font-size: 35px !important;
-    margin-bottom: 20px;  
-    font-family :'product sans' !important;
-    font-weight: bolder;
+.screen-home__form {
+	padding: 40px 0 0 0;
 }
-h1 {
-    font-weight: lighter !important;
-    font-size: 45px !important;
-    margin-bottom: 20px;  
-    font-family :'product sans' !important;
-    font-weight: bolder;
-  }
+.screen-home__location .lable {
+	display: flex;
+  align-items: center;
+}
+.lable {
+	display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.lable .icon {
+	margin: 0 10px 0 0;
+}
+.lable .text {
+	font-family: roboto;
+}
+.inside-wrap {
+	background-color: #66A1F3;
+  /*padding: 10px 0px;*/
+  position: relative;
+  border-radius: 5px;
+}
+.inside-lable {
+  font-size: 0.7rem;
+  padding: 0px 0 5px 0;
+  display: inline-block;
+}
+.input {
+	width: 100%;
+  border: 0;
+  padding: 8px 0;
+  font-size: 1.4rem;
+  background: none;
+  outline: none;
+  color: #ffffff;
+}
+ .from {
+ 	border-bottom: 2px solid #ffffff;
+ }
+.from, .to {
+	padding: 8px 15px;
+}
+.rotate-btn {
+  position: absolute;
+  right: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.rotate-btn figure {
+	margin: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #66a1f3;
+}
+.screen-home__date .inside-wrap {
+	display: flex;
+	padding: 4px 15px;
+}
+.onward {
+  width: 50%;
+	position: relative;
+}
+.return {
+  width: calc(50% - 15px);
+  padding-left: 15px;
+}
+.onward:before {
+	content: '';
+  position: absolute;
+  width: 1px;
+  height: 35px;
+  background-color: #ffffff;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display:none;
+}
+.onward,
+.return {
+  display: flex;
+}
+.onward .input,
+.return .input {
+  width: 37px;
+}
+.mon-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  padding-left: 13px;
+  color: #ffffff;
+}
+.mon-day:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 20px;
+  background-color: #ffffff;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+.month {
+  padding-top: 4px;
+}
+.day {
+  padding-bottom: 4px;
+}
+.inside-lable-wrap {
+	display: flex;
+}
+.inside-lable-wrap .inside-lable-col {
+	width: 50%;
+}
+.screen-bottom {
+	position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+}
+.screen-bottom ul {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 15px;
+}
+.screen-home__submit-wrap .screen-home__bus-page {
+	background-color: #66a1f3;
+  width: 46px;
+  height: 46px;
+  position: relative;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  padding: 0;
+  border: 3px solid #ffffff;
+}
+.screen-home__submit-wrap .screen-home__bus-page figure {
+	height: 26px;
+  cursor: pointer;
+}
+.screen-home__submit-wrap {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.line {
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background-color: #66a1f3;
+	z-index: -1;
+}
+
+
+.screen-home__recent-search {
+  margin-top: 20px;
+}
+.screen-home__rs-col {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border: 1px solid #c7deff;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+.screen-homers-from-to {
+  display: flex;
+  align-items: center;
+}
+.screen-home__rs-arrow {
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background-color: #000000;
+  margin: 0 10px;
+  position: relative;
+}
+.screen-home__rs-arrow:before,
+.screen-home__rs-arrow:after {
+  content: "";
+  width: 6px;
+  height: 1px;
+  background-color: #000000;
+  position: absolute;
+  right: 0;
+}
+.screen-home__rs-arrow:before {
+  transform: rotate(45deg);
+  top: -2px;
+}
+.screen-home__rs-arrow:after {
+  transform: rotate(-45deg);
+  top: 2px;
+}
+
+
+/* ========== Bus ========== */
+.screen-bus {
+  opacity: 0;
+}
+.screen-bus__location-filter-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #66A1F3;
+}
+.screen-bus__location {
+  padding: 1.3rem 15px;
+  color: #ffffff;
+}
+.screen-bus__filter {
+  padding-right: 1rem;
+}
+.screen-bus__location-row {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.screen-bus__date-row {
+  font-size: 0.7rem;
+}
+.screen-bus__center-arrow{
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 100px;
+  margin: 0 1.2rem;
+}
+.screen-bus__travels-wrap {
+  padding: 1rem 1rem 0 1rem;
+}
+.screen-bus__travels-col {
+  box-shadow: 0px 1px 4px rgba(170, 170, 170, 0.25);
+  border-radius: 3px;
+  padding: 12px;
+  border: 1px solid whitesmoke;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(5px);
+}
+.screen-bus__name-time-seat {
+  display: flex;
+  justify-content: space-between;
+}
+.screen-bus__name-wrap,
+.screen-bus__time-wrap,
+.screen-bus__seat-wrap {
+  width: 33.333%;
+}
+.screen-bus__name-wrap {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+}
+.screen-bus__name {
+  margin-bottom: 0.3rem;
+}
+.screen-bus__type,
+.screen-bus__hrs span {
+  font-size: 0.6rem;
+  color: #cacaca;
+}
+.screen-bus__seat-wrap {
+  text-align: right;
+  font-size: 0.7rem;
+}
+.screen-bus__count {
+  font-size: 0.9rem;
+  color: #81e276;
+}
+.screen-bus__time-wrap {
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: column;
+}
+.screen-bus__time {
+  display: flex;
+  margin-bottom: 0.3rem;
+}
+.screen-bus__time-arrow-wrap {
+  margin: 0 0.7rem;
+}
+.screen-bus__time-arrow {
+  display: inline-block;
+  width: 15px;
+  height: 1px;
+  background-color: red;
+  position: relative;
+}
+.screen-bus__time-arrow:after,
+.screen-bus__time-arrow:before {
+  content: "";
+  width: 5px;
+  height: 1px;
+  background-color: red;
+  position: absolute;
+  right: 0;
+}
+.screen-bus__time-arrow:after {
+  transform: rotate(-45deg);
+  top: 2px;
+}
+.screen-bus__time-arrow:before {
+  transform: rotate(45deg);
+  top: -2px;
+}
+.screen-bus__rating-price-row {
+  display: flex;
+  justify-content: space-between;
+}
+.screen-bus__rating-price {
+  margin-top: 0.5rem;
+}
+.screen-bus__rating-row {
+  display: flex;
+}
+.screen-bus__rating-row li {
+  margin-right: 5px;
+}
+.screen-bus__rating-row li:last-child {
+  margin-right: 0;
+}
+.screen-home__inside-wave {
+  width: 0%;
+  height: 0%;
+  position: absolute;
+  border-radius: 100px;
+  background-color: #ffffff7d;
+  cursor: pointer;
+}
 </style>
 <main>
-                        <div class="row mb-5">                                                         
-                        <div class="col-9 out">
-                            <div class="row ">                                                     
-                                <div class="col">
-                                    <h2 class="text-secondary mb-0 brand">
-                                        Online Bus Booking</h2> 
-                                </div>
-                                <div class="col">
-                                    <h2 class="mb-0"></h2>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">  
-                                <div class="row">
-                                    <div class="col-3">
-                                        <p class="head">Date</p>
-                                        <p class="txt"><%= date %> </p>
-                                    </div>
-                                    <div class="col-3">
-                                        <p class="head">From</p>
-                                        <p class="txt"><%= journey.starting_address %></p>
-                                    </div>            
-                                    <div class="col-3">
-                                        <p class="head">To</p>
-                                        <p class="txt"><%= journey.destination_address %></p>
-                                    </div>                
-                                </div>  
-                            <div class="row mb-3">
-                                <div class="col-8">
-                                    <p class="head">Passenger</p>
-                                    <p class=" h5 text-uppercase">
-                                    <%= user.user_name %></p>
-                                    </p>                              
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <p class="head">Bus</p>
-                                    <p class="txt"><%= journey.bus_name %> </p>
-                                </div>
-                                <div class="col-3">
-                                    <p class="head">Time</p>
-                                    <p class="txt"><%= journey.leaving_time %></p>
-                                </div>            
-                                <div class="col-3">
-                                    <p class="head">Number of seats</p>
-                                    <p class="txt"><%= booking.no_of_tickets %></p>
-                                </div>                
-                            </div>                    
-                        </div>
-                                                                      
-
-    </div>
-  </main>
-  <script>
-  </script>
+<div class="main" style="width: 100vw;">
+	<main class="app" >
+		<div class="screen-wrap">
+			<section class="screen-home">
+				<div class="screen-home__form-wrap">
+					<div class="screen-home__form">
+						<form>
+							<div id="formdetail">
+								<div class="screen-home__location">
+									<div class="lable">
+										<figure class="icon"><img src="https://i.ibb.co/KwnYdXN/location.png"></figure>
+										<span class="text">Location Details</span>
+									</div>
+									<div class="input-wrap">
+										<div class="inside-wrap">
+											<div class="rotate-btn">
+												<figure>
+													<img src="https://i.ibb.co/HPBrQkn/rotate-btn.png">
+												</figure>
+											</div>
+											<div class="from">
+												<span class="inside-lable">From</span>
+												<div class="input" type="" name="" value="Bangalore">
+													<%= journey.starting_address %>
+												</div>
+											</div>
+											<div class="to">
+												<span class="inside-lable">To</span>
+												<div class="input" type="" name="" value="Chennai">
+													<%= journey.destination_address %>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="screen-home__date">
+									<div class="lable">
+										<figure class="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png"></figure>
+										<span class="text">Date Details</span>
+									</div>
+									<div class="input-wrap" >
+										<div class="inside-wrap" >
+											<div class="onward" style="border: none;">
+												<div class="input" type="" name="" value="10" style="width: 100%;">
+													<%= date %> 
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+								<div class="screen-home__date">
+									<div class="lable">
+									
+										<span class="text">Leaving Time</span>
+									</div>
+									<div class="input-wrap" >
+										<div class="inside-wrap" >
+											<div class="onward" style="border: none;">
+												<div class="input" type="" name="" value="10" style="width: 100%;">
+													<%= journey.leaving_time %>
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+								<div class="screen-home__date">
+									<div class="lable">
+									
+										<span class="text">Passenger Details</span>
+									</div>
+									<div class="input-wrap" >
+										<div class="inside-wrap" >
+											<div class="onward" style="border: none;">
+												<div class="input" type="" name="" value="10" style="width: 100%;">
+													<%= user.user_name %>
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+								<div class="screen-home__date">
+									<div class="lable">
+									
+										<span class="text">Bus Details</span>
+									</div>
+									<div class="input-wrap" >
+										<div class="inside-wrap" >
+											<div class="onward" style="border: none;">
+												<div class="input" type="" name="" value="10" style="width: 100%;">
+													<%= journey.bus_name %>
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+								<div class="screen-home__date">
+									<div class="lable">
+									
+										<span class="text">Number of seats</span>
+									</div>
+									<div class="input-wrap" >
+										<div class="inside-wrap" >
+											<div class="onward" style="border: none;">
+												<div class="input" type="" name="" value="10" style="width: 100%;">
+													<%= booking.no_of_tickets %>
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="screen-home__submit-wrap">
+								<span class="line"></span>
+								<div class="screen-home__bus-page" id="buspage">
+									<div class="screen-home__inside-wave">
+										
+									</div>
+									<figure class="screen-home__bus-arrow-wrap">
+<!--                     <span class="screen-home__btn-blink"></span> -->
+										<img src="https://i.ibb.co/nQ4khG8/arrow.png">
+									</figure>
+								</div>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</section>
+			<section class="screen-bus">
+				<div class="screen-bus__location-filter-wrap">
+					<div class="screen-bus__location-filter-row">
+						<div class="screen-bus__location">
+							<div class="screen-bus__location-row">
+								<span class="screen-bus__location-col">Bangalore</span>
+								<span class="screen-home__rs-arrow"></span>
+								<span class="screen-bus__location-col">Chennai</span>
+							</div>
+							<div class="screen-bus__date-row">
+								<span>Wed, 10/ 12/ 2019</span> - <span>Fri, 12/ 12/ 2019</span>
+							</div>
+						</div>
+						<div class="screen-bus__filter">
+							<figure>
+								<img src="https://i.ibb.co/ZJt9tkM/filter.png">
+							</figure>
+						</div>
+					</div>
+				</div>
+				<div class="screen-bus__travels-wrap">
+					<div class="screen-bus__travels-row">
+						<div class="screen-bus__travels-col">
+							<div class="screen-bus__name-time-seat">
+								<div class="screen-bus__name-wrap">
+									<span class="screen-bus__name">KPN Travels</span>
+									<span class="screen-bus__type">Non A/C</span>
+								</div>
+								<div class="screen-bus__time-wrap">
+									<div class="screen-bus__time">
+										<div class="screen-bus__start">13:40</div>
+										<div class="screen-bus__time-arrow-wrap">
+											<span class="screen-bus__time-arrow"></span>
+										</div>
+										<div class="screen-bus__end">15:40</div>
+									</div>
+									<div class="screen-bus__hrs">
+										<span>2 hrs</span>
+									</div>
+								</div>
+								<div class="screen-bus__seat-wrap">
+									<div>
+										<span class="screen-bus__count">26</span>
+										Seats Available
+									</div>
+								</div>
+							</div>
+							<div class="screen-bus__rating-price">
+								<div class="screen-bus__rating-price-row">
+									<div class="screen-bus__rating">
+										<ul class="screen-bus__rating-row">
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+										</ul>
+									</div>
+									<div class="screen-bus__price">
+										<span><span>&#8377;</span> 1220</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="screen-bus__travels-col">
+							<div class="screen-bus__name-time-seat">
+								<div class="screen-bus__name-wrap">
+									<span class="screen-bus__name">SRS Travels</span>
+									<span class="screen-bus__type">A/C Sleeper</span>
+								</div>
+								<div class="screen-bus__time-wrap">
+									<div class="screen-bus__time">
+										<div class="screen-bus__start">12:00</div>
+										<div class="screen-bus__time-arrow-wrap">
+											<span class="screen-bus__time-arrow"></span>
+										</div>
+										<div class="screen-bus__end">15:00</div>
+									</div>
+									<div class="screen-bus__hrs">
+										<span>3 hrs</span>
+									</div>
+								</div>
+								<div class="screen-bus__seat-wrap">
+									<div>
+										<span class="screen-bus__count">13</span>
+										Seats Available
+									</div>
+								</div>
+							</div>
+							<div class="screen-bus__rating-price">
+								<div class="screen-bus__rating-price-row">
+									<div class="screen-bus__rating">
+										<ul class="screen-bus__rating-row">
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+										</ul>
+									</div>
+									<div class="screen-bus__price">
+										<span><span>&#8377;</span> 800</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="screen-bus__travels-col">
+							<div class="screen-bus__name-time-seat">
+								<div class="screen-bus__name-wrap">
+									<span class="screen-bus__name">Royal Travels</span>
+									<span class="screen-bus__type">A/C Sleeper</span>
+								</div>
+								<div class="screen-bus__time-wrap">
+									<div class="screen-bus__time">
+										<div class="screen-bus__start">22:00</div>
+										<div class="screen-bus__time-arrow-wrap">
+											<span class="screen-bus__time-arrow"></span>
+										</div>
+										<div class="screen-bus__end">1:00</div>
+									</div>
+									<div class="screen-bus__hrs">
+										<span>3 hrs</span>
+									</div>
+								</div>
+								<div class="screen-bus__seat-wrap">
+									<div>
+										<span class="screen-bus__count">20</span>
+										Seats Available
+									</div>
+								</div>
+							</div>
+							<div class="screen-bus__rating-price">
+								<div class="screen-bus__rating-price-row">
+									<div class="screen-bus__rating">
+										<ul class="screen-bus__rating-row">
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+										</ul>
+									</div>
+									<div class="screen-bus__price">
+										<span><span>&#8377;</span> 840</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="screen-bus__travels-col">
+							<div class="screen-bus__name-time-seat">
+								<div class="screen-bus__name-wrap">
+									<span class="screen-bus__name">MRN Travels</span>
+									<span class="screen-bus__type">Non A/C</span>
+								</div>
+								<div class="screen-bus__time-wrap">
+									<div class="screen-bus__time">
+										<div class="screen-bus__start">16:45</div>
+										<div class="screen-bus__time-arrow-wrap">
+											<span class="screen-bus__time-arrow"></span>
+										</div>
+										<div class="screen-bus__end">18:45</div>
+									</div>
+									<div class="screen-bus__hrs">
+										<span>4 hrs</span>
+									</div>
+								</div>
+								<div class="screen-bus__seat-wrap">
+									<div>
+										<span class="screen-bus__count">19</span>
+										Seats Available
+									</div>
+								</div>
+							</div>
+							<div class="screen-bus__rating-price">
+								<div class="screen-bus__rating-price-row">
+									<div class="screen-bus__rating">
+										<ul class="screen-bus__rating-row">
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+										</ul>
+									</div>
+									<div class="screen-bus__price">
+										<span><span>&#8377;</span> 550</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="screen-bus__travels-col">
+							<div class="screen-bus__name-time-seat">
+								<div class="screen-bus__name-wrap">
+									<span class="screen-bus__name">Indian Travels</span>
+									<span class="screen-bus__type">A/C Sleeper</span>
+								</div>
+								<div class="screen-bus__time-wrap">
+									<div class="screen-bus__time">
+										<div class="screen-bus__start">10:40</div>
+										<div class="screen-bus__time-arrow-wrap">
+											<span class="screen-bus__time-arrow"></span>
+										</div>
+										<div class="screen-bus__end">15:40</div>
+									</div>
+									<div class="screen-bus__hrs">
+										<span>5 hrs</span>
+									</div>
+								</div>
+								<div class="screen-bus__seat-wrap">
+									<div>
+										<span class="screen-bus__count">13</span>
+										Seats Available
+									</div>
+								</div>
+							</div>
+							<div class="screen-bus__rating-price">
+								<div class="screen-bus__rating-price-row">
+									<div class="screen-bus__rating">
+										<ul class="screen-bus__rating-row">
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/pxtdTrM/star.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+											<li><figure><img src="https://i.ibb.co/WPLcC1D/star-grey.png"></figure></li>
+										</ul>
+									</div>
+									<div class="screen-bus__price">
+										<span><span>&#8377;</span> 300</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</div>
+</main>

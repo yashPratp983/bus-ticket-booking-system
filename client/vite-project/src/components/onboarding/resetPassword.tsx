@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams,useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/users";
-
+import { useShow } from "../../contexts/showChangedPassword";
 type FormValues={
     password:string
     confirmPassword:string
@@ -22,6 +22,7 @@ const ResetPassword=()=>{
     const {token}=useParams<{token:string}>();
     const navigate=useNavigate();
     const {setUser}=useAuth();
+    const show=useShow();
 
     const formSchema = Yup.object().shape({
         password: Yup.string()
@@ -46,7 +47,7 @@ const ResetPassword=()=>{
 
     const getUser=async()=>{
         try{
-            const user=await axios.get('http://localhost:3000/api/v1/users/me',{
+            const user=await axios.get('https://localhost:2020/api/v1/users/me',{
             headers:{
                 authorisation:`Bearer ${localStorage.getItem('token')}`
             }
@@ -71,11 +72,12 @@ const ResetPassword=()=>{
     const submitHandler=async(data:FormValues)=>{
             try{
             setLoading(true)
-            const tok = await axios.put(`http://localhost:3000/api/v1/users/resetpassword/${token}`, data);
+            const tok = await axios.put(`https://localhost:2020/api/v1/users/resetpassword/${token}`, data);
             console.log(tok)
             localStorage.setItem('token', tok.data.token);
             getUser();
             setLoading(false)
+            show?.setShow(true);
             navigate('/');
             }
             catch (err:any) {

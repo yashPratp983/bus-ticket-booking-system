@@ -1,11 +1,31 @@
 import Header from "./header"
 import Table from "./table"
+import { useShow } from "../../contexts/showChangedPassword"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
 
 type PropsType={
     loading:boolean
 }
 
 const Home=(props:PropsType)=>{
+    const show=useShow()
+
+    useEffect(()=>{
+        if(show?.show){
+            toast.success('Password Changed Successfully', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+                });
+            show?.setShow(false);
+        }
+    },[])
+
     return(
         <>
         <Header />
@@ -19,6 +39,19 @@ const Home=(props:PropsType)=>{
     <span className="sr-only">Loading...</span>
 </div>
 </div>}
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                
+                pauseOnHover
+                theme="dark"
+            />
         </>
     )
 }

@@ -8,15 +8,20 @@ const ejs=require('ejs');
 
 exports.payment=asyncHandler(async (req,res,next)=>{
     try{
-    const time=await axios.get("https://worldtimeapi.org/api/timezone/asia/kolkata")
-    const dat=new Date(time.data.datetime)
+    const dat=new Date()
     let timestr = dat.toLocaleTimeString('en-US', {hour12: false});
     console.log(timestr)
+
+    if(req.user.is_verified==false){
+        return next(new errorResponse('Please verify your email',401));
+    }
+    
     try{
     
     // await db.query('BEGIN TRANSACTION');
 
     const journey=await db.query('SELECT * FROM journey WHERE journey_id=$1',[req.body.journey_id]);
+
 
 
         if(journey.rows.length==0){

@@ -48,7 +48,7 @@ const Header = () => {
 
     const emailHandler=async()=>{
         try{
-        const res=await axios.post('http://localhost:3000/api/v1/users/resendemailverification',{email:auth.user?.user_email})
+        const res=await axios.post('http://localhost:2020/api/v1/users/resendemailverification',{email:auth.user?.user_email})
         handleClose()
         toast.success(`Email sent successfully`, {
             position: "bottom-left",

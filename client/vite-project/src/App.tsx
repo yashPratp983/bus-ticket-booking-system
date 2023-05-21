@@ -13,6 +13,7 @@ import axios from 'axios'
 import Loading from './components/loading'
 import UserTickets from './components/user_tickets/user_tickets'
 import AuthRequire from './auth/authRequire'
+import { ShowContextProvider } from './contexts/showChangedPassword'
 
 function App() {
   const {setUser}=useAuth()
@@ -21,7 +22,7 @@ function App() {
   useEffect(()=>{
     const getUser=async()=>{
         try{
-            const user=await axios.get('http://localhost:3000/api/v1/users/me',{
+            const user=await axios.get('https://localhost:2020/api/v1/users/me',{
             headers:{
                 authorisation:`Bearer ${localStorage.getItem('token')}`
             }
@@ -42,8 +43,8 @@ function App() {
   
   return (
     
- 
-          <Routes>
+    <ShowContextProvider>
+      <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Signup />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -56,7 +57,7 @@ function App() {
       <Route path='/usertickets' element={loading?<Loading />:<AuthRequire><UserTickets /></AuthRequire>} />
       </Routes>
     
-
+      </ShowContextProvider>
     
   )
 }

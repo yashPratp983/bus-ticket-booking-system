@@ -47,7 +47,7 @@ const Login=()=>{
 
     const getUser=async()=>{
         try{
-            const user=await axios.get('http://localhost:3000/api/v1/users/me',{
+            const user=await axios.get('https://localhost:2020/api/v1/users/me',{
             headers:{
                 authorisation:`Bearer ${localStorage.getItem('token')}`
             }
@@ -71,7 +71,7 @@ const Login=()=>{
     const loginHandler=async(data:FormValues)=>{
             try{
             setLoading(true)
-            const tok = await axios.post('http://localhost:3000/api/v1/users/login', data);
+            const tok = await axios.post('https://localhost:2020/api/v1/users/login', data);
             console.log(tok)
             localStorage.setItem('token', tok.data.token);
             getUser();

@@ -65,7 +65,7 @@ const Overlay=(props:overlayProps)=>{
     const handleToken=async(token:any)=>{
         const tok=localStorage.getItem('token')
         try{
-            const res=await axios.post("http://localhost:3000/api/v1/booking",
+            const res=await axios.post("https://localhost:2020/api/v1/booking/payment",
             {
                     token,
                     bus_name:props.item?.bus_name,
@@ -83,8 +83,16 @@ const Overlay=(props:overlayProps)=>{
             }
             )
             const html=res.data.html
-            convertHtmlToPdf(html)
-           
+            const filename = 'ticket.html';
+            const url = URL.createObjectURL(new Blob([html], {type: 'text/html'}));
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode?.removeChild(link);
+            
             console.log(res)
 
             toast.success(`Booking Successful`, {

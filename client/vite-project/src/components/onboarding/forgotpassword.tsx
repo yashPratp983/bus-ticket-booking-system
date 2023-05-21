@@ -36,7 +36,7 @@ const ForgotPassword=()=>{
     const getPasswordHandler=async(data:FormValues)=>{
             try{
             setLoading(true)
-            const tok = await axios.post('http://localhost:3000/api/v1/users/forgotpassword', data);
+            const tok = await axios.post('https://localhost:2020/api/v1/users/forgotpassword', data);
             console.log(tok)
             toast.info(`${tok.data.data}`, {
                 position: "bottom-left",
