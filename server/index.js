@@ -42,10 +42,9 @@ cron.schedule('0 0 * * *',async ()=>{
 });
 
 const options = {
-  key: fs.readFileSync('/etc/render/ssl/private_key.pem'),
-  cert: fs.readFileSync('/etc/render/ssl/cert.pem')
+  key: fs.readFileSync('cert/key.pem'),
+  cert: fs.readFileSync('cert/cert.pem')
 };
-
 
 const server1 = spdy.createServer(options, app);
 
